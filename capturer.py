@@ -41,61 +41,23 @@ class Capturer:
             rt0 = time.time()
             pt0 = time.process_time()
             result, image = self.capture.read()
-            pt1 = time.process_time()
-            rt1 = time.time()
             if not result:
                 print("Error while capturing frame")
                 break
-            rt2 = time.time()
-            pt2 = time.process_time()
             image = self.effect_image(image, effect)
-            pt3 = time.process_time()
-            rt3 = time.time()
             cv2.imshow('Default camera', image)
-            pt4 = time.process_time()
-            rt4 = time.time()
             if cv2.waitKey(1) == ord('q'):
                 break
-            pt5 = time.process_time()
-            rt5 = time.time()
+            rt1 = time.time()
+            pt1 = time.process_time()
 
-            self.write_time(rt0, rt1, rt2, rt3, rt4, rt5, pt0, pt1, pt2, pt3, pt4, pt5)
-
-            
+            self.write_time(rt0, rt1, pt0, pt1)
 
 
     def effect_image(self, image, effect: Effect):
         return effect(image)
 
     
-    def write_time(self, rt0, rt1, rt2, rt3, rt4, rt5, pt0, pt1, pt2, pt3, pt4, pt5):
-        with open('get_real.log', 'a') as file:
-            file.write(str(rt1 - rt0) + '\n')
-            
-        with open('effect_real.log', 'a') as file:
-            file.write(str(rt3 - rt2) + '\n')
-
-        with open('display_real.log', 'a') as file:
-            file.write(str(rt4 - rt3) + '\n')
-        
-        with open('wait_real.log', 'a') as file:
-            file.write(str(rt5 - rt4) + '\n')
-
-        with open('all_real.log', 'a') as file:
-            file.write(str(rt5 - rt0) + '\n')
-
-        
-        with open('get_proc.log', 'a') as file:
-            file.write(str(pt1 - pt0) + '\n')
-            
-        with open('effect_proc.log', 'a') as file:
-            file.write(str(pt3 - pt2) + '\n')
-
-        with open('display_proc.log', 'a') as file:
-            file.write(str(pt4 - pt3) + '\n')
-        
-        with open('wait_proc.log', 'a') as file:
-            file.write(str(pt5 - pt4) + '\n')
-
-        with open('all_proc.log', 'a') as file:
-            file.write(str(pt5 - pt0) + '\n')
+    def write_time(self, rt0, rt1, pt0, pt1):
+        with open('time.log', 'a') as file:
+            file.write(str(rt1 - rt0) + ' ' + str(pt1- pt0) + '\n')
