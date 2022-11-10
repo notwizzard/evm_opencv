@@ -1,6 +1,4 @@
 import cv2
-from datetime import datetime
-import numpy as np
 from enum import Enum
 from effects import *
 import time
