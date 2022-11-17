@@ -37,7 +37,7 @@ class Capturer:
         display_real_time = 0
         while(True):
             frames += 1
-            if frames == 1000:
+            if frames == 2000:
                 print("READ:", read_process_time, " ", read_real_time)
                 print("EFFECT:", effect_process_time, " ", effect_real_time)
                 print("DISPLAY:",display_process_time, " ", display_real_time)
